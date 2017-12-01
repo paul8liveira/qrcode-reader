@@ -1,12 +1,26 @@
 {
-    "name": "br.com.startmeupsolutions.qrcodereader",
-    "displayName": "qrcodeReader",
-    "version": "1.0.0",
-    "description": "MVP leitor de qrcode.",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "br.com.startmeupsolutions.qrcodereader",
+  "displayName": "qrcodeReader",
+  "version": "1.0.0",
+  "description": "MVP leitor de qrcode.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Apache Cordova Team",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cordova-android": "^6.3.0",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "phonegap-plugin-barcodescanner": "^7.0.0"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "phonegap-plugin-barcodescanner": {}
     },
-    "author": "Apache Cordova Team",
-    "license": "Apache-2.0"
+    "platforms": [
+      "android"
+    ]
+  }
 }
