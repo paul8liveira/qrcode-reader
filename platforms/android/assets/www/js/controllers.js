@@ -1,5 +1,8 @@
 app.controllers = {
   indexPage: function(page) {
+    // app.services.tasks.getList().forEach(function(data) {
+    //     app.services.tasks.create(data);
+    // });                                 
     
     page.querySelector('ons-toolbar .center').innerHTML = 'QR Code Reader';
 
@@ -9,7 +12,8 @@ app.controllers = {
           function (result) {
             ons.notification.alert( "Text: " + result.text + "\n" +
                                     "Format: " + result.format + "\n" +
-                                    "Cancelled: " + result.cancelled);                            
+                                    "Cancelled: " + result.cancelled); 
+                                      
           },
           function (error) {
             ons.notification.alert("Error: " + error);

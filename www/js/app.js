@@ -1,24 +1,30 @@
 window.app = {};
 
-function onDeviceReady() {
-    app.sqlite.tests.canOpenDatabase();
-}
-
-document.addEventListener('init', function(event) {
-    document.addEventListener("deviceready", onDeviceReady, false);
+var init = {
+    go: function() {
+        this.bindEvents();
+    },
+    bindEvents: function() {
+        document.addEventListener('init', this.onInit, false);
+        document.addEventListener('deviceready', this.onDeviceReady, false);        
+    },
+    onInit: function (event) {
+        var page = event.target;
     
-    var page = event.target;
-
-    if (app.controllers.hasOwnProperty(page.id)) {
-        app.controllers[page.id](page);
-    }
-
-    if (page.id === 'indexPage') {
-        if (document.querySelector('#indexPage') && !document.querySelector('#indexPage ons-list-item')) {
-            var list = app.services.tasks.getList();
-            list.forEach(function(data) {
-                app.services.tasks.create(data);
-            });                               
+        if (app.controllers.hasOwnProperty(page.id)) {
+            app.controllers[page.id](page);
         }
-    }
-});
+        ons.notification.alert("init onsen");
+    },
+    onDeviceReady: function() {        
+        app.sqlite.openDatabase();    
+        app.sqlite.create();  
+    
+        var d = new Date();
+        app.sqlite.add(d.toString());
+
+        //já está obtendo a lsita do banco e carregando a lista na tela. por enquanto ficará assim
+        app.sqlite.getList();          
+    },    
+};
+init.go();

@@ -25,60 +25,60 @@ app.services = {
                     }
                 );
             };
-    
-            // Insert urgent tasks at the top and non urgent tasks at the bottom.
+
             var list = document.querySelector('#list');
             list.insertBefore(itemList, list.firstChild);
         },
-        getList: function() {            
-            var list = 
-            [
-                {
-                    title: 'QR Code 1',
-                },
-                {
-                    title: 'QR Code 2',
-                },
-                {
-                    title: 'QR Code 3',
-                },
-                {
-                    title: 'QR Code 4',
-                },
-                {
-                    title: 'QR Code 5',
-                },
-                {
-                    title: 'QR Code 6',
-                },
-                {
-                    title: 'QR Code 7',
-                },
-                {
-                    title: 'QR Code 8',
-                },
-                {
-                    title: 'QR Code 9',
-                },
-                {
-                    title: 'QR Code 10',
-                },
-                {
-                    title: 'QR Code 11',
-                },
-                {
-                    title: 'QR Code 12',
-                },
-                {
-                    title: 'QR Code 13',
-                },
-                {
-                    title: 'QR Code 14',
-                },
-                {
-                    title: 'QR Code 15',
-                },                                                                                                                
-            ];
+        getList: function() {    
+            var list = app.sqlite.getList();             
+            // var list = 
+            // [
+            //     {
+            //         title: 'QR Code 1',
+            //     },
+            //     {
+            //         title: 'QR Code 2',
+            //     },
+            //     {
+            //         title: 'QR Code 3',
+            //     },
+            //     {
+            //         title: 'QR Code 4',
+            //     },
+            //     {
+            //         title: 'QR Code 5',
+            //     },
+            //     {
+            //         title: 'QR Code 6',
+            //     },
+            //     {
+            //         title: 'QR Code 7',
+            //     },
+            //     {
+            //         title: 'QR Code 8',
+            //     },
+            //     {
+            //         title: 'QR Code 9',
+            //     },
+            //     {
+            //         title: 'QR Code 10',
+            //     },
+            //     {
+            //         title: 'QR Code 11',
+            //     },
+            //     {
+            //         title: 'QR Code 12',
+            //     },
+            //     {
+            //         title: 'QR Code 13',
+            //     },
+            //     {
+            //         title: 'QR Code 14',
+            //     },
+            //     {
+            //         title: 'QR Code 15',
+            //     },                                                                                                                
+            // ];
             return list;
         },        
     },  
