@@ -1,8 +1,8 @@
 {
   "name": "br.com.startmeupsolutions.qrcodereader",
-  "displayName": "qrcodeReader",
+  "displayName": "StartMeUp - MVP Manut.",
   "version": "1.0.0",
-  "description": "MVP leitor de qrcode.",
+  "description": "StartMeUp - MVP Manut.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

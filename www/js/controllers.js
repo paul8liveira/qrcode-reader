@@ -1,6 +1,6 @@
 app.controllers = {
   indexPage: function(page) {
-    page.querySelector('ons-toolbar .center').innerHTML = 'QR Code Reader';
+    page.querySelector('ons-toolbar .center').innerHTML = 'StartMeUp - MVP Manut.';
 
     Array.prototype.forEach.call(page.querySelectorAll('[component="button/ler-qr-code"]'), function(element) {
       element.onclick = function() {

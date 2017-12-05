@@ -19,7 +19,7 @@ var init = {
         app.sqlite.openDatabase();
         app.sqlite.createTables();
 
-        //já está obtendo a lsita do banco e carregando a lista na tela. por enquanto ficará assim
+        //já está obtendo a lista do banco e carregando na tela. por enquanto ficará assim
         app.sqlite.getList();          
     },    
 };

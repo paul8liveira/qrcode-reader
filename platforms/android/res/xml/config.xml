@@ -10,9 +10,9 @@
     <feature name="SQLitePlugin">
         <param name="android-package" value="io.sqlc.SQLitePlugin" />
     </feature>
-    <name>qrcodeReader</name>
+    <name>StartMeUp - MVP Manut.</name>
     <description>
-        MVP leitor de qrcode.
+        StartMeUp - MVP Manut.
     </description>
     <author email="paul8liveira@gmail.com" href="http://paulooliveira.herokuapp.com/">
         paul8liveira
