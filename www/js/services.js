@@ -4,13 +4,20 @@ app.services = {
             var itemList = ons.createElement(
                 '<ons-list-item tappable>' +
                 '<div class="center">' +
-                data.title +
+                data.text +
                 '</div>' +
+                '<div class="right">' +
+                '<ons-icon style="color: grey; padding-left: 4px" icon="ion-ios-trash-outline, material:md-delete"></ons-icon>' +
+                '</div>' +                
                 '</ons-list-item>'
             );
     
             //guarda o objeto de dados no elemento
             itemList.data = data;
+
+            itemList.querySelector('.right').onclick = function() {
+                app.services.tasks.delete(itemList);
+            };            
     
             //adiciona funcionalidade de push page no item da lista para exibir os detalhes
             itemList.querySelector('.center').onclick = function() {
@@ -28,58 +35,40 @@ app.services = {
 
             var list = document.querySelector('#list');
             list.insertBefore(itemList, list.firstChild);
-        },
-        getList: function() {    
-            var list = app.sqlite.getList();             
-            // var list = 
-            // [
-            //     {
-            //         title: 'QR Code 1',
-            //     },
-            //     {
-            //         title: 'QR Code 2',
-            //     },
-            //     {
-            //         title: 'QR Code 3',
-            //     },
-            //     {
-            //         title: 'QR Code 4',
-            //     },
-            //     {
-            //         title: 'QR Code 5',
-            //     },
-            //     {
-            //         title: 'QR Code 6',
-            //     },
-            //     {
-            //         title: 'QR Code 7',
-            //     },
-            //     {
-            //         title: 'QR Code 8',
-            //     },
-            //     {
-            //         title: 'QR Code 9',
-            //     },
-            //     {
-            //         title: 'QR Code 10',
-            //     },
-            //     {
-            //         title: 'QR Code 11',
-            //     },
-            //     {
-            //         title: 'QR Code 12',
-            //     },
-            //     {
-            //         title: 'QR Code 13',
-            //     },
-            //     {
-            //         title: 'QR Code 14',
-            //     },
-            //     {
-            //         title: 'QR Code 15',
-            //     },                                                                                                                
-            // ];
-            return list;
-        },        
+        }, 
+        update: function(element, data) {
+            if (data.text !== element.data.text) {
+                element.querySelector('.center').innerHTML = data.text;
+            }               
+            element.data = data;
+            app.sqlite.update(data);
+        },          
+        delete: function(item) {
+            app.services.animators.remove(item, function() {
+              item.remove();
+              app.sqlite.delete(item.data.id);
+            });
+        },                
     },  
+    animators: {        
+        swipe: function(listItem, callback) {
+            var animation = (listItem.parentElement.id === 'pending-list') ? 'animation-swipe-right' : 'animation-swipe-left';
+            listItem.classList.add('hide-children');
+            listItem.classList.add(animation);
+
+            setTimeout(function() {
+            listItem.classList.remove(animation);
+            listItem.classList.remove('hide-children');
+            callback();
+            }, 950);
+        },
+        remove: function(listItem, callback) {
+            listItem.classList.add('animation-remove');
+            listItem.classList.add('hide-children');
+
+            setTimeout(function() {
+            callback();
+            }, 750);
+        }
+    },    
 };

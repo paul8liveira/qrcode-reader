@@ -14,20 +14,23 @@ app.sqlite = {
     openDatabase: function() {
         app.database = window.sqlitePlugin.openDatabase({name: 'startmeup.db', location: 'default'});
     },    
-    create: function() {
+    createTables: function() {
         app.database.transaction(function (tx) {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS demo (title)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS demo (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT)');
         }, 
         function (error) {
             ons.notification.alert(error.message);
             app.database.close();
         });
     },
-    add: function(title) {
+    create: function(data) {
         app.database.transaction(function (tx) {                
-            var query = "INSERT INTO demo (title) VALUES (?)";        
-            tx.executeSql(query, [title], function(tx, res) {
-                ons.notification.alert('insertId: ' + res.insertId + ' rowsAffected: ' + res.rowsAffected);
+            var query = "INSERT INTO demo (text) VALUES (?)";        
+            tx.executeSql(query, [data.text], function(tx, res) {
+                app.services.tasks.create({
+                    id: res.insertId,
+                    text: data.text
+                });
             },
             function(tx, error) {
                 ons.notification.alert('add: ' + error.message);
@@ -37,8 +40,35 @@ app.sqlite = {
             ons.notification.alert('transaction > add: ' + error.message);
         });
     },    
+    update: function(data) {
+        app.database.transaction(function (tx) {                
+            var query = "UPDATE demo SET text = ? WHERE id = ?";        
+            tx.executeSql(query, [data.text, data.id], function(tx, res) {
+                //
+            },
+            function(tx, error) {
+                ons.notification.alert('update: ' + error.message);
+            });
+        }, 
+        function(error) {
+            ons.notification.alert('transaction > update: ' + error.message);
+        });
+    },     
+    delete: function(id) {
+        app.database.transaction(function (tx) {                
+            var query = "DELETE FROM demo WHERE id = ?";        
+            tx.executeSql(query, [id], function(tx, res) {
+                //
+            },
+            function(tx, error) {
+                ons.notification.alert('update: ' + error.message);
+            });
+        }, 
+        function(error) {
+            ons.notification.alert('transaction > update: ' + error.message);
+        });
+    },     
     getList: function() {
-        var list = [];
         app.database.transaction(function (tx) {
             var query = "SELECT * FROM demo";
         
@@ -46,7 +76,8 @@ app.sqlite = {
                 for(var x = 0; x < resultSet.rows.length; x++) {                    
                     app.services.tasks.create(
                         {
-                            title: resultSet.rows.item(x).title
+                            id: resultSet.rows.item(x).id,
+                            text: resultSet.rows.item(x).text
                         }
                     );
                 }                                  
